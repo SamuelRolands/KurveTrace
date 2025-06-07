@@ -1,5 +1,7 @@
 import fastf1
 from fastf1.plotting import setup_mpl
+from fastf1.tools import delta_time
+from fastf1.plotting import DRIVER_COLORS
 from fastf1 import plotting
 import streamlit as st
 import matplotlib.pyplot as plt
@@ -61,3 +63,23 @@ ax[2].set_ylabel("Brakes (%)")
 ax[2].set_xlabel("Distance (m)")
 
 st.pyplot(fig)
+
+
+r1 = lap1.get_car_data().add_distance()
+r2 = lap2.get_car_data().add_distance()
+
+delta, ref = delta_time.compare_laps(lap1, lap2)
+
+fig_delta, ax_delta = plt.subplots(figsize=(10, 3))
+ax_delta.plot(delta['Distance'], delta['Delta'], color='purple')
+ax_delta.set_ylabel("Delta Time (s)")
+ax_delta.set_xlabel("Distance (m)")
+ax_delta.axhline(0, color='black', linestyle='--')
+st.subheader("Lap Time Delta")
+st.pyplot(fig_delta)
+
+
+color1 = DRIVER_COLORS.get(driver1, 'blue')
+color2 = DRIVER_COLORS.get(driver2, 'red')
+
+ax[0].plot(tel1['Distance'], tel1['Speed'], label=..., color=color1)
