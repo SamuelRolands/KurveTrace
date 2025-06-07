@@ -1,6 +1,5 @@
 import fastf1
 from fastf1.plotting import setup_mpl
-from fastf1.plotting import delta_time
 from fastf1.plotting import DRIVER_COLORS
 from fastf1 import plotting
 import streamlit as st
@@ -65,18 +64,30 @@ ax[2].set_xlabel("Distance (m)")
 st.pyplot(fig)
 
 
-r1 = lap1.get_car_data().add_distance()
-r2 = lap2.get_car_data().add_distance()
+# Pick fastest laps of each driver individually
+lap1_obj = session.laps.pick_driver(driver1).pick_fastest()
+lap2_obj = session.laps.pick_driver(driver2).pick_fastest()
 
-delta, ref = delta_time.compare_laps(lap1, lap2)
+# Get telemetry data
+tel1 = lap1_obj.get_car_data().add_distance()
+tel2 = lap2_obj.get_car_data().add_distance()
 
+# Interpolate tel2 telemetry to tel1 distance points
+tel2_interp = tel2.set_index('Distance').reindex(tel1['Distance'], method='nearest').reset_index()
+
+# Compute delta time between the two laps at each distance point
+delta = tel2_interp['Time'] - tel1['Time']
+
+# Plot delta
 fig_delta, ax_delta = plt.subplots(figsize=(10, 3))
-ax_delta.plot(delta['Distance'], delta['Delta'], color='purple')
+ax_delta.plot(tel1['Distance'], delta.dt.total_seconds(), color='green')
 ax_delta.set_ylabel("Delta Time (s)")
 ax_delta.set_xlabel("Distance (m)")
 ax_delta.axhline(0, color='black', linestyle='--')
-st.subheader("Lap Time Delta")
+
+st.subheader("Lap Time Delta 📉")
 st.pyplot(fig_delta)
+
 
 
 color1 = DRIVER_COLORS.get(driver1, 'blue')
