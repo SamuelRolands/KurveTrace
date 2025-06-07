@@ -1,6 +1,6 @@
 import fastf1
 from fastf1.plotting import setup_mpl
-from fastf1.tools import delta_time
+from fastf1.plotting import delta_time
 from fastf1.plotting import DRIVER_COLORS
 from fastf1 import plotting
 import streamlit as st
