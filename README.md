@@ -1,5 +1,10 @@
 # KurveTrace
-KurveTrace is a Python-based F1 Precision Telemetry Analysis tool for Motorsport Data Enthusiasts and Engineers using FastF1. It visualizes lap data, racing lines, throttle/brake traces, and delta times. Built for engineers, data scientists, and racing fans seeking precision, insight, and clean visualizations from real-world F1 sessions.
+KurveTrace
+Precision Telemetry Analysis for Motorsport Data Enthusiasts and Engineers
+
+KurveTrace is a Python-based telemetry analysis toolkit built using FastF1. It provides high-resolution insights into lap performance, racing lines, throttle/brake traces, and sector deltas—designed for motorsport professionals, data scientists, and simulation enthusiasts.
+
+The software aims to deliver a clean, intuitive interface while enabling powerful backend analytics and data visualizations from F1 timing data.
 
 🛠️ Tech Stack
 Language: Python 3.x
